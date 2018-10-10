@@ -5,6 +5,9 @@ set(CMAKE_CXX_STANDARD 11)
 
 include_directories(src/models)
 
+include_directories(src/models)
+include_directories(src/views)
+
 add_executable(FSSO
         src/models/Datanode.cpp
         src/models/Datanode.h

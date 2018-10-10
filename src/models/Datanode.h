@@ -17,11 +17,19 @@ class __attribute__ ((__packed__)) Datanode {
     char data[507]; // Caso pirmeiro nodo da cadeia de byte é nome do arquivo, se não dado do arqivo
     unsigned int sector; // proximo setor a ser lido, caso 0 ultimo setor
 public:
-    unsigned int *getBytes(); //retorna multiplas referẽncias
+    Datanode(char staus);
+
     string getName(); //retorna o nome
-    unsigned int getProxSector(); //pegar proximo setor
-    void setBytes(unsigned int *bytes); //retorna multiplas referẽncias
-    void setName(string name); //retorna o nome
-    void getProxSector(unsigned int proxSector); //pegar proximo setor
+
+    char getStaus() const;
+
+    void setStaus(char staus);
+
+    const char *getData() const;
+
+    unsigned int getSector() const;
+
+    void setSector(unsigned int sector);
+    //pegar proximo setor
 };
 #endif //FSSO_DATANODE_H

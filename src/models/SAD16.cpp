@@ -43,24 +43,35 @@ void SAD16::formatDevice(unsigned int numbSectors) {
     this->boot.setErrorForm(1);
     this->boot.setErrorHead(0);
     this->boot.setErrorSector(0);
-//    fseek(this->device,0,SEEK_SET);
-//    fwrite(&this->boot, 16 ,1,this->device);
-//    fseek(this->device,0,SEEK_SET);
-//    cout<<this->boot<<endl;
-//    BootSAD aux;
-//    cout<<aux<<endl;
-//    fread(&aux, sizeof(BootSAD),1,this->device);
-//    cout<<aux<<endl;
     FILE *disk = this->device;
     cout<<"------------------------------------------------------"<<endl;
+    char buffer[512];
     fseek(disk, 0, SEEK_SET);
-    unsigned short a= this->boot.getSectorSize();
-    fwrite(&a, sizeof(unsigned short),1,disk);
-    fseek(disk, 0, SEEK_SET);
-    unsigned short b;
-    fread(&b,2,1,disk);
-    cout<<a<<endl;
-    cout<<b<<endl;
+//    fread(buffer, sizeof(char), sizeof(buffer),disk);
+//    for(int i=0;i<512;i++){
+//        printf("%x ", buffer[i]);
+//    }
+//    cout<<"------------------------------------------------------"<<endl;
+//    fseek(disk, 0, SEEK_SET);
+//    unsigned short int dumb=0;
 
+//    fseek(disk, 0, SEEK_SET);
+//    fread(buffer, sizeof(char), sizeof(buffer),disk);
+    fread(buffer, sizeof(char), sizeof(buffer),disk);
+    for(int i=0;i<512;i++){
+        printf("%x ", buffer[i],i);
+    }
+    cout<<endl<<"------------------------------------------------------"<<endl;
+    fseek(disk, 0, SEEK_SET);
+//    fwrite(&this->boot, sizeof(BootSAD),1,disk);
+    unsigned long int dumb= 0;
+    for (int i = 0; i < 512;i++) {
+        fwrite(&dumb, sizeof(long),1,disk);
+    }
+    fseek(disk, 0, SEEK_SET);
+    fread(buffer, sizeof(char), sizeof(buffer),disk);
+    for(int i=0;i<512;i++){
+        printf("%x ", buffer[i],i);
+    }
 
 }

@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cstring>
+#include <SAD16.h>
 //#include <sys/vfs.h>
 
 using namespace std;
@@ -33,7 +34,9 @@ int main() {
                     unsigned int sectors;
                     cout<<"Numero de Setores a Serem Alocados: ";
                     cin>>sectors;
-
+                    SAD16 fs;
+                    fs.setDevice(disk);
+                    fs.formatDevice(sectors);
                     break;
 
                 case 2:

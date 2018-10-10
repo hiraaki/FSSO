@@ -13,8 +13,8 @@ add_executable(FSSO
         src/models/Datanode.h
         src/models/Dirnode.cpp
         src/models/Dirnode.h
-        src/models/SAD32.cpp
-        src/models/SAD32.h
+        src/models/SAD16.cpp
+        src/models/SAD16.h
         src/models/Tabent.cpp
         src/models/Tabent.h
         src/views/main.cpp src/models/BootSad.cpp src/models/BootSad.h)

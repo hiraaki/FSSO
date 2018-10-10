@@ -12,11 +12,11 @@ void SAD16::setDevice(FILE *device) {
     SAD16::device = device;
 }
 
-const BootSad &SAD16::getBoot() const {
+const BootSAD &SAD16::getBoot() const {
     return boot;
 }
 
-void SAD16::setBoot(const BootSad &boot) {
+void SAD16::setBoot(const BootSAD &boot) {
     SAD16::boot = boot;
 }
 
@@ -38,18 +38,23 @@ void SAD16::setDirEntries(Tabent *dirEntries) {
 
 void SAD16::formatDevice(unsigned int numbSectors) {
     this->boot.setSectorSize(512);
-    this->boot.setTotalEntryes(numbSectors*0.05);
+    this->boot.setTotalEntries(numbSectors*0.05);
     this->boot.setEntrySize(16);
-    this->boot.setFormatError(1);
-    this->boot.setErrorHeader(0);
+    this->boot.setErrorForm(1);
+    this->boot.setErrorHead(0);
     this->boot.setErrorSector(0);
-    fseek(this->device,0,SEEK_SET);
-    fwrite(&this->boot, sizeof(BootSad),1,this->device);
-    fseek(this->device,0,SEEK_SET);
-    BootSad aux;
-    cout<<aux<<endl;
-    fread(&aux, sizeof(BootSad),1,this->device);
-    cout<<aux<<endl;
-    cout<<this->boot<<endl;
+//    fseek(this->device,0,SEEK_SET);
+//    fwrite(&this->boot, 16 ,1,this->device);
+//    fseek(this->device,0,SEEK_SET);
+//    cout<<this->boot<<endl;
+//    BootSAD aux;
+//    cout<<aux<<endl;
+//    fread(&aux, sizeof(BootSAD),1,this->device);
+//    cout<<aux<<endl;
+    FILE *disk = this->device;
+    cout<<"------------------------------------------------------"<<endl;
+    fseek(disk, 0, SEEK_SET);
+
+
 
 }

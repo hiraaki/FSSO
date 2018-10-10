@@ -17,4 +17,4 @@ add_executable(FSSO
         src/models/SAD16.h
         src/models/Tabent.cpp
         src/models/Tabent.h
-        src/views/main.cpp src/models/BootSad.cpp src/models/BootSad.h)
+        src/views/main.cpp src/models/BootSad.cpp src/models/BootSad.h src/models/BootSAD.cpp src/models/BootSAD.h)

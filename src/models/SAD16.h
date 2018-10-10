@@ -15,7 +15,7 @@ using namespace std;
 
 class SAD16 {
     FILE *device;
-    BootSad boot;
+    BootSAD boot;
     Tabent *fileEntries;
     Tabent *dirEntries;
 public:
@@ -23,9 +23,9 @@ public:
 
     void setDevice(FILE *device);
 
-    const BootSad &getBoot() const;
+    const BootSAD &getBoot() const;
 
-    void setBoot(const BootSad &boot);
+    void setBoot(const BootSAD &boot);
 
     Tabent *getFileEntries() const;
 

@@ -1,9 +1,7 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.12)
 project(FSSO)
 
-set(CMAKE_CXX_STANDARD 11)
-
-include_directories(src/models)
+set(CMAKE_CXX_STANDARD 14)
 
 include_directories(src/models)
 include_directories(src/views)
@@ -17,4 +15,4 @@ add_executable(FSSO
         src/models/SAD16.h
         src/models/Tabent.cpp
         src/models/Tabent.h
-        src/views/main.cpp src/models/BootSad.cpp src/models/BootSad.h src/models/BootSAD.cpp src/models/BootSAD.h)
+        src/views/main.cpp src/models/BootSAD.cpp src/models/BootSAD.h)

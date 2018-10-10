@@ -6,9 +6,7 @@
 #define FSSO_BOOTSAD_H
 
 
-#include <ostream>
-
-class __attribute__ ((__packed__)) BootSAD {
+class BootSAD {
     unsigned short int sectorSize;
     unsigned int totalEntries;
     unsigned char entrySize;
@@ -16,7 +14,7 @@ class __attribute__ ((__packed__)) BootSAD {
     unsigned int errorHead;
     unsigned int errorSector;
 public:
-    unsigned short int getSectorSize() const;
+    unsigned short getSectorSize() const;
 
     void setSectorSize(unsigned short sectorSize);
 
@@ -39,8 +37,6 @@ public:
     unsigned int getErrorSector() const;
 
     void setErrorSector(unsigned int errorSector);
-
-    friend std::ostream &operator<<(std::ostream &os, const BootSAD &sad);
 };
 
 

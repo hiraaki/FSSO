@@ -1,17 +1,17 @@
 #include <iostream>
 #include <cstring>
-#include <sys/vfs.h>
+//#include <sys/vfs.h>
 
 using namespace std;
 
 
 int main() {
-    string path = "/dev/sdb"; // para a gabriela no linux, amém
+//    string path = "/dev/sdb"; // para a gabriela no linux, amém
     //string path = "/dev/sdb1"; //linux
-    //string path = "\\\\.\\E:"; //windows
+    string path = "\\\\.\\E:"; //windows
     FILE *disk;
 
-    disk=fopen(path.c_str(), "ab+");
+    disk=fopen(path.c_str(), "rb+");
 
     if(!disk){
         cout<<path<<"could not be opened!";
@@ -30,22 +30,26 @@ int main() {
 
             switch (n){
                 case 1:
-
-                    struct statfs fsb;
-
-                    if(statfs("/dev/sdb", &fsb) == 0)
-                        printf("device has %ld blocks, each %ld bytes\n", fsb.f_blocks, fsb.f_bsize);
-                        //cout << (fsb.f_blocks*fsb.f_bsize)/(1024*1024*1024) << " gb";
-                        cout << (fsb.f_blocks*fsb.f_bsize)/(1024*1024*1024) << " gb";
+                    unsigned int sectors;
+                    cout<<"Numero de Setores a Serem Alocados: ";
+                    cin>>sectors;
 
                     break;
 
                 case 2:
 
+
                     break;
             }
         }
 
+
+//                    struct statfs fsb;
+//
+//                    if(statfs("/dev/sdb", &fsb) == 0)
+//                        printf("device has %ld blocks, each %ld bytes\n", fsb.f_blocks, fsb.f_bsize);
+//                        //cout << (fsb.f_blocks*fsb.f_bsize)/(1024*1024*1024) << " gb";
+//                        cout << (fsb.f_blocks*fsb.f_bsize)/(1024*1024*1024) << " gb";
 
 
 

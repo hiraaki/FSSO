@@ -3,3 +3,4 @@
 //
 
 #include "SAD32.h"
+SAD32::

@@ -47,7 +47,9 @@ void SAD16::formatDevice(unsigned int numbSectors) {
     fwrite(&this->boot, sizeof(BootSad),1,this->device);
     fseek(this->device,0,SEEK_SET);
     BootSad aux;
+    cout<<aux<<endl;
     fread(&aux, sizeof(BootSad),1,this->device);
-    cout<<aux;
+    cout<<aux<<endl;
+    cout<<this->boot<<endl;
 
 }

@@ -12,7 +12,7 @@ int main() {
     string path = "\\\\.\\E:"; //windows
     FILE *disk;
 
-    disk=fopen(path.c_str(), "rb+");
+    disk=fopen(path.c_str(), "ab+");
 
     if(!disk){
         cout<<path<<"could not be opened!";
@@ -37,6 +37,23 @@ int main() {
                     SAD16 fs;
                     fs.setDevice(disk);
                     fs.formatDevice(sectors);
+                    cout<<"------------------------------------------------------"<<endl;
+                    char buffer[512];
+                    fseek(disk, 0, SEEK_SET);
+                    fread(buffer, sizeof(char), sizeof(buffer),disk);
+                    for(int i=0;i<512;i++){
+                        printf("%x ", buffer[i]);
+                    }
+                    unsigned int dumb;
+                    dumb=10;
+                    for (int i = 0; i < 32;i++) {
+                        fwrite(&dumb, sizeof(int),1,disk);
+                    }
+                    fseek(disk, 0, SEEK_SET);
+                    fread(buffer, sizeof(char), sizeof(buffer),disk);
+                    for(int i=0;i<512;i++){
+                        printf("%x ", buffer[i]);
+                    }
                     break;
 
                 case 2:

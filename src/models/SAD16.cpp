@@ -55,7 +55,7 @@ void SAD16::formatDevice(unsigned int numbSectors) {
     cout<<"------------------------------------------------------"<<endl;
     fseek(disk, 0, SEEK_SET);
     unsigned short a= this->boot.getSectorSize();
-    fwrite(&a,2,1,disk);
+    fwrite(&a, sizeof(unsigned short),1,disk);
     fseek(disk, 0, SEEK_SET);
     unsigned short b;
     fread(&b,2,1,disk);

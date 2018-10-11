@@ -32,3 +32,7 @@ string Datanode::getName() {
     return string(data);
 }
 
+Datanode::Datanode() {
+
+}
+

@@ -11,10 +11,8 @@ int main() {
     string path = "/dev/sdb1"; // para a gabriela no linux, amém
     //string path = "/dev/sdb1"; //linux
     //string path = "\\\\.\\D:"; //windows
-    FILE *disk;
+    FILE *disk, *arq;
     disk=fopen(path.c_str(), "rb+");
-
-    BootSAD piranha;
 
 
     if(!disk){
@@ -45,10 +43,20 @@ int main() {
 
                     break;
                 case 2:
+                    string caminho;
+                    cout << "Insira o caminho do arquivo: ";
+                    cin >> caminho;
+                    SAD16 fs2;
+                    fs2.setDevice(disk);
+                    arq=fopen(caminho.c_str(), "rb+");
+                    fs2.addFile(arq);
 
 
                     break;
                 case 4:
+                    SAD16 fs1;
+                    fs1.setDevice(disk);
+                    fs1.listar();
 
                     break;
             }

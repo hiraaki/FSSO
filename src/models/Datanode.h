@@ -19,6 +19,8 @@ class __attribute__ ((__packed__)) Datanode {
 public:
     Datanode(char staus);
 
+    Datanode();
+
     string getName(); //retorna o nome
 
     char getStaus() const;

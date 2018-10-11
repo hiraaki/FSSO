@@ -7,6 +7,10 @@
 #include <stdio.h>
 #include <ctime>
 
+time_t timer;
+struct tm *horarioLocal;
+
+
 FILE *SAD16::getDevice() const {
     return device;
 }
@@ -65,22 +69,21 @@ void SAD16::formatDevice(unsigned int numbSectors) {
     //Limpar completamente o pendrive
     //cout << boot.getTotalEntries() << " cansei\n";
 
-    for(i=0;i<this->boot.getTotalEntries();i++){
+    for(i=1;i<numbSectors;i++){
         for(j=0;j<512;j++){
             fwrite(&dumb, sizeof(dumb),1,disk);
         }
     }
 
-    //Escreve o boot
-    fwrite(&this->boot,sizeof(BootSAD),1,disk);
+//    fseek(disk, 0, SEEK_SET);
+//    //Escreve o boot
+//    fwrite(&this->boot,sizeof(BootSAD),1,disk);
 
     //Agora vamos criar a tabela de entradas
 
     fseek(disk, 0, SEEK_SET); // volta pro início
     fseek(disk, 16, SEEK_SET); // depois do boot record
 
-    time_t timer;
-    struct tm *horarioLocal;
     time(&timer); // Obtem informações de data e hora
     horarioLocal = localtime(&timer); // Converte a hora atual para a hora local
 
@@ -106,7 +109,8 @@ void SAD16::formatDevice(unsigned int numbSectors) {
 
 
     //Agora vamos mexer na partição de dados
-    fseek(disk, 16+(boot.getTotalEntries()*16), SEEK_SET);
+
+    fseek(disk, 16+(boot.getTotalEntries()*512), SEEK_SET);
 
     Dirnode dirnode, dirnode2;
 
@@ -116,27 +120,34 @@ void SAD16::formatDevice(unsigned int numbSectors) {
 
     fwrite(&dirnode,sizeof(dirnode),1,disk);
 
-    fseek(disk, 512+16+(boot.getTotalEntries()*16), SEEK_SET);
+    fseek(disk, 512+16+(boot.getTotalEntries()*512), SEEK_SET);
 
     dirnode2.setStaus(85);
     dirnode2.setSector(0);
 
     fwrite(&dirnode2,sizeof(dirnode2),1,disk);
 
+    this->boot.setErrorForm(0);
 
+    fseek(disk, 0, SEEK_SET);
+    //Escreve o boot
+    fwrite(&this->boot,sizeof(BootSAD),1,disk);
+
+
+    cout << "\nFORMATACAO CONCLUIDA\n";
 
 
 
     //APENAS PARA DEBUG
-    fseek(disk, 0, SEEK_SET);
-    BootSAD aux;
-    fread(&aux, sizeof(BootSAD),1,disk);
-
-    fseek(disk, 16, SEEK_SET); // depois do boot record
-
-    Tabent entradaRoot1;
-
-    fread(&entradaRoot1, sizeof(entradaRoot1),1,disk);
+//    fseek(disk, 0, SEEK_SET);
+//    BootSAD aux;
+//    fread(&aux, sizeof(BootSAD),1,disk);
+//
+//    fseek(disk, 16, SEEK_SET); // depois do boot record
+//
+//    Tabent entradaRoot1;
+//
+//    fread(&entradaRoot1, sizeof(entradaRoot1),1,disk);
 
 //    printf("status: %x ",entradaRoot1.getStatus());
 //    printf("tamanho: %x ",entradaRoot1.getTotalSize1());
@@ -152,7 +163,6 @@ void SAD16::formatDevice(unsigned int numbSectors) {
 //        printf("%x ", buffer[i],i);
 //    }
 
-    char aleatorio;
 
 //    while (getchar() != EOF){
 //      fread(&aleatorio, sizeof(char), 1,disk);
@@ -171,5 +181,88 @@ void SAD16::formatDevice(unsigned int numbSectors) {
 void SAD16::listar() {
 
     FILE *disk = this->device;
+//    BootSAD boot;
+//
+//
+//    fseek(disk, 0, SEEK_SET);
+//    fread(&boot, sizeof(boot),1,disk);
+//
+//    cout << "boot\n";
+//
+//    printf("%x \n", boot.getSectorSize());
+//    printf("%x \n", boot.getTotalEntries());
+//    printf("%x \n", boot.getEntrySize());
+//    printf("%x \n", boot.getErrorForm());
+//    printf("%x \n", boot.getErrorHead());
+//    printf("%x \n", boot.getErrorSector());
+
+    fseek(disk, 16, SEEK_SET);
+    Tabent entradaRoot;
+    fread(&entradaRoot, sizeof(entradaRoot),1,disk);
+
+//    cout << "PRIMEIRA ENTRADA\n";
+//
+//    printf("status: %x\n",entradaRoot.getStatus());
+//    printf("tamanho: %x\n",entradaRoot.getTotalSize1());
+//    printf("setor: %x\n",entradaRoot.getSector());
+//    printf("hora: %x\n",entradaRoot.getHora());
+//    printf("min: %x\n",entradaRoot.getMinuto());
+//    printf("dia: %x\n",entradaRoot.getDia());
+//    printf("mes: %x\n",entradaRoot.getMes());
+
+    fseek(disk, 16+(boot.getTotalEntries()*512), SEEK_SET);
+
+    Dirnode dirnode, dirnode2;
+
+    fread(&dirnode, sizeof(dirnode),1,disk);
+    printf("status: %x",dirnode.getStaus());
+
+    fseek(disk, 512+16+(boot.getTotalEntries()*512), SEEK_SET);
+
+    fread(&dirnode2, sizeof(dirnode2),1,disk);
+    printf("status: %x",dirnode2.getStaus());
+
+
+
+}
+
+void SAD16::addFile(FILE *file){
+    string caminho;
+
+    cout << "\nInsira o caminho do diretorio: ";
+    cin >> caminho;
+    Tabent data;
+
+    if(caminho=="root/"){
+        fseek(this->device, 16, SEEK_SET); // depois do boot record
+        while(1){
+            fread(&data, sizeof(Tabent),1,device);
+            if(data.getStatus()==12||data.getStatus()==240){
+                fseek(this->device, 16, SEEK_CUR);
+                printf("status: %x\n",data.getStatus());
+            }else{
+                break;
+            }
+        }
+
+        time(&timer); // Obtem informações de data e hora
+        horarioLocal = localtime(&timer); // Converte a hora atual para a hora local
+
+        data.setStatus(12);
+        data.setTotalSize1(1);
+        data.setSector(0); //primeiro setor da área de dados é o root
+        data.setHora(horarioLocal->tm_hour);
+        data.setMinuto(horarioLocal->tm_min);
+        data.setDia(horarioLocal->tm_mday);
+        data.setMes(horarioLocal->tm_mon + 1);
+
+        fseek(device, 16+(boot.getTotalEntries()*512), SEEK_SET);
+
+        fwrite(&data,sizeof(data),1,device);
+
+        //aqui continuaria, mas a vida é cruel e eu n consegui terminar
+
+
+    }
 
 }

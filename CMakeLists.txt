@@ -1,12 +1,13 @@
-cmake_minimum_required(VERSION 3.12)
-project(FSSO)
+cmake_minimum_required(VERSION 3.10)
+project(Trabson_3)
 
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 11)
 
 include_directories(src/models)
-include_directories(src/views)
 
-add_executable(FSSO
+add_executable(Trabson_3
+        src/models/BootSAD.cpp
+        src/models/BootSAD.h
         src/models/Datanode.cpp
         src/models/Datanode.h
         src/models/Dirnode.cpp
@@ -15,4 +16,4 @@ add_executable(FSSO
         src/models/SAD16.h
         src/models/Tabent.cpp
         src/models/Tabent.h
-        src/views/main.cpp src/models/BootSAD.cpp src/models/BootSAD.h)
+        src/views/main.cpp)

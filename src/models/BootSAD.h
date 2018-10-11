@@ -6,9 +6,11 @@
 #define FSSO_BOOTSAD_H
 
 
+#include <ostream>
+
 class BootSAD {
     unsigned short int sectorSize;
-    unsigned int totalEntries;
+    unsigned int totalEntries; // dado em setores, cada setor 512 bytes
     unsigned char entrySize;
     unsigned char errorForm;
     unsigned int errorHead;
@@ -37,6 +39,8 @@ public:
     unsigned int getErrorSector() const;
 
     void setErrorSector(unsigned int errorSector);
+
+    friend std::ostream &operator<<(std::ostream &os, const BootSAD &sad);
 };
 
 

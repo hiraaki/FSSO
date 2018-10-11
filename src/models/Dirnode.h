@@ -8,11 +8,12 @@
 #include <string>
 using namespace std;
 class __attribute__ ((__packed__)) Dirnode {
+    unsigned int sector; // proximo setor a ser lido, caso 0 ultimo setor
     char staus; //setor vazio/cheio
     char data[507]; // Caso pirmeiro nodo da cadeia de byte é nome do diretório, se não é referência de arqivo/diretório
-    unsigned int sector; // proximo setor a ser lido, caso 0 ultimo setor
+
 public:
-    Dirnode(char staus);
+    Dirnode();
 
     unsigned int *getref(); //retorna multiplas referẽncias
 
@@ -29,6 +30,9 @@ public:
     unsigned int getSector() const;
 
     void setSector(unsigned int sector);
+
+    void setData(string banana);
+
 
 };
 

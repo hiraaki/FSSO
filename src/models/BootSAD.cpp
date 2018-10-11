@@ -51,3 +51,9 @@ unsigned int BootSAD::getErrorSector() const {
 void BootSAD::setErrorSector(unsigned int errorSector) {
     BootSAD::errorSector = errorSector;
 }
+
+std::ostream &operator<<(std::ostream &os, const BootSAD &sad) {
+    os << "sectorSize: " << sad.sectorSize << " totalEntries: " << sad.totalEntries << " entrySize: " <<(unsigned short int) sad.entrySize
+       << " errorForm: " <<(unsigned short int) sad.errorForm << " errorHead: " << sad.errorHead << " errorSector: " << sad.errorSector;
+    return os;
+}

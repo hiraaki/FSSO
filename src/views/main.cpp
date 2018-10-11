@@ -8,11 +8,14 @@ using namespace std;
 
 
 int main() {
-//    string path = "/dev/sdb"; // para a gabriela no linux, amém
+    string path = "/dev/sdb1"; // para a gabriela no linux, amém
     //string path = "/dev/sdb1"; //linux
-    string path = "\\\\.\\D:"; //windows
+    //string path = "\\\\.\\D:"; //windows
     FILE *disk;
     disk=fopen(path.c_str(), "rb+");
+
+    BootSAD piranha;
+
 
     if(!disk){
         cout<<path<<"could not be opened!";
@@ -42,6 +45,10 @@ int main() {
 
                     break;
                 case 2:
+
+
+                    break;
+                case 4:
 
                     break;
             }

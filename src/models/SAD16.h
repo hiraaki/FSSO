@@ -9,7 +9,7 @@
 #include "Datanode.h"
 #include "Tabent.h"
 #include "Dirnode.h"
-#include "BootSad.h"
+#include "BootSAD.h"
 #include <iostream>
 using namespace std;
 
@@ -41,6 +41,7 @@ public:
     void removDir(string dirName);
     void adRemovFile(string fileName);
     void formatDevice(unsigned int numbSectors);
+    void listar();
 
 };
 

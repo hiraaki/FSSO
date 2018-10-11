@@ -2,9 +2,10 @@
 // Created by mhi on 18/09/18.
 //
 
+#include <cstring>
 #include "Dirnode.h"
 
-Dirnode::Dirnode(char staus) : staus(staus) {
+Dirnode::Dirnode() : staus(staus) {
 
 }
 
@@ -30,4 +31,8 @@ void Dirnode::setSector(unsigned int sector) {
 
 string Dirnode::getName(){
     return string(data);
+}
+
+void Dirnode::setData(string banana) {
+    strncpy(data, banana.c_str(), sizeof(data));
 }
